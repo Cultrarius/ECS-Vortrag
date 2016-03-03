@@ -1,5 +1,7 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="author" content="Michael Galetzka / michael.galetzka@disy.net"><title>Entity Component Systems (ECS)</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"><link href="reveal.js/css/reveal.css" rel="stylesheet"><link rel="stylesheet" href="reveal.js/css/theme/nipa-day.css" id="theme"><link href="reveal.js/lib/css/zenburn.css" rel="stylesheet"><script>document.write( '<link rel="stylesheet" href="reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );</script></head><body><div class="reveal"><div class="slides"><section><h1>Entity Component Systems (ECS)</h1><link rel="stylesheet" href="highlight.js/9.2.0.monokai-sublime.min.css">
 <script src="highlight.js/9.2.0.min.js"></script>
+<script src="jquery/jquery-2.2.1.min.js"></script>
+<script src="reveal.js/js/reveal.js"></script>
 <script>
 	hljs.initHighlightingOnLoad();
 	hljs.configure({tabReplace: '    '})
@@ -7,6 +9,7 @@
 <section id="_entity_component_systems_ecs"><h2>Entity Component Systems (ECS)</h2><h3>Kurze Umfrage</h3>
 <div class="ulist"><ul><li><p>Wer kennt es?</p></li><li><p>Wer hat es schon benutzt?</p></li></ul></div></section>
 <section id="_beispielanwendung"><h2>Beispielanwendung</h2><div class="paragraph"><p>Wir bauen ein neues 3D Fantasy-Computerspiel mit Drachen, Einhörnern, etc.</p></div>
+<div class="imageblock" style=""><div class="content"><img src="images/gamer.svg" alt="Gamer" width="300"></div></div>
 <div class="paragraph"><p>Wie würde eine passende Architektur aussehen?</p></div></section>
 <section id="_klassischer_oop_ansatz"><h2>Klassischer OOP Ansatz</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="json language-json">GameObject
 |-PhysicsObject
@@ -20,10 +23,51 @@
 |        |-Dragon (breathe fire, eat unicorns, ...)
 |-ParticleEmitter
 |-ScriptObject
-|-UtilityObject</code></pre></div></div></section>
+|-UtilityObject</code></pre></div></div>
+<div class="imageblock" style="position: absolute; top: 150px; right: 250px;">
+  <div class="content">
+	  <img src="images/dragon.svg" alt="Dragon" width="250">
+  </div>
+</div>
+<div class="imageblock" style="position: absolute; top: 160px; right: 100px;">
+  <div class="content">
+	  <img src="images/unicorn.svg" alt="Unicorn" width="150">
+  </div>
+</div></section>
 <section><section id="_Änderungswünsche"><h2>Änderungswünsche!</h2></section><section id="_bewegliche_lichter"><h2>Bewegliche Lichter!</h2><div class="paragraph"><p><strong>Bisher waren Lichter vom Typ <code>StaticObject</code>.</strong></p></div>
-<div class="ulist"><ul><li><p>Lichter sind ab jetzt <code>MoveableObject</code> statt <code>StaticObject</code> &#8594; schlechter optimierbar, hat nun unnötige Methoden</p></li><li><p>Alternative: ein zweites Licht als <code>MoveableObject</code> erstellen &#8594; Code Duplikation oder zumindest Overhead</p></li></ul></div></section><section id="_leuchtende_einhörner"><h2>Leuchtende Einhörner</h2><div class="paragraph"><p><strong>Unsere Einhörner sind nicht majestätisch genug!</strong></p></div>
-<div class="ulist"><ul><li><p>Alle <code>GameCharacter</code> bekommen eine <code>getLightEmitters</code> Methode? &#8594; viel Overhead und fette API</p></li><li><p>Wir "hacken" die Lösung indem wir ein bewegliches Licht erstellen, welches dem Einhorn folgt</p></li></ul></div></section><section id="_neue_kreatur"><h2>Neue Kreatur</h2><div class="paragraph"><p><strong>Unser Produzent will für den Plot eine neue Kreatur: den Unidragon (Kreuzung Unicorn/Dragon)</strong></p></div>
+<div class="ulist"><ul><li><p>Lichter sind ab jetzt <code>MoveableObject</code> statt <code>StaticObject</code> &#8594; schlechter optimierbar, hat nun unnötige Methoden</p></li><li><p>Alternative: ein zweites Licht als <code>MoveableObject</code> erstellen &#8594; Code Duplikation oder zumindest Overhead</p></li></ul></div>
+<div class="imageblock" style=""><div class="content"><img src="images/fireball.svg" alt="Fireball" width="300"></div></div></section><section id="_leuchtende_einhörner"><h2>Leuchtende Einhörner</h2><div class="paragraph"><p><strong>Unsere Einhörner sind nicht majestätisch genug!</strong></p></div>
+<div class="ulist"><ul><li><p>Neue <code>getLightEmitters</code> Methode für <code>GameCharacter</code>?<br>
+&#8594; viel Overhead und fette API</p></li><li><p>Wir "hacken" ein bewegliches Licht,<br>
+welches dem Einhorn folgt</p></li></ul></div>
+<div class="imageblock" style="position: absolute; top: 200px; right: 50px;">
+ <div class="content">
+	  <img src="images/unicornLight.svg" alt="UnicornLight" width="250">
+		<p id="dealLabel" style="
+    position: absolute;
+    top: 320px;
+    background-color: gold;
+    color: mediumblue;
+    font-weight: bold;
+">DEAL WITH IT</p>
+ </div>
+</div>
+<div id="glasses" class="imageblock" style="position: absolute; top: -200px; right: 50px;">
+ <div class="content">
+	  <img src="images/unicornLightGlasses.svg" alt="UnicornLightGlasses" width="250">
+ </div>
+</div>
+<script>
+	$("#_leuchtende_einhörner").attr("data-state", "dealWithIt");
+	Reveal.addEventListener('dealWithIt', function () {
+		$("#dealLabel").css("display", "none");
+		$("#glasses").css("top", "-150px");
+		$("#glasses").animate({top: "200px"}, 5000, "linear", function() {
+			$("#dealLabel").css("display", "block");
+		});
+	});
+</script></section><section id="_neue_kreatur"><h2>Neue Kreatur</h2><div class="paragraph"><p><strong>Unser Produzent will für den Plot eine neue Kreatur: den Unidragon (Kreuzung Unicorn/Dragon)</strong></p></div>
+<div class="imageblock" style=""><div class="content"><img src="images/genders.svg" alt="Creatures" width="450"></div></div>
 <div class="ulist"><ul><li><p>Err&#8230;&#8203; Refactoring?</p></li></ul></div></section></section>
 <section id="_was_lief_schief"><h2>Was lief schief?</h2><div class="ulist"><ul><li><p><strong>Inheritance over Composition!</strong></p></li><li><p>Unklare und schnell wechselnde Anforderungen</p></li><li><p>Viele verschiedene (mehr oder weniger unabhängige) Akteure &#8658; Vermischung der Zuständigkeiten</p></li></ul></div></section>
 <section><section id="_ecs_to_the_rescue"><h2>ECS to the Rescue!</h2><div class="ulist"><ul><li><p><strong>Entities</strong> haben keine Daten und kein Verhalten, sind nur Namen</p></li><li><p><strong>Components</strong> beinhalten ALLE Daten für die Entities, keine Logik</p></li><li><p>Die komplette Logik ist in <strong>Systems</strong> enthalten, die über vordefinierte Filter mit Entities versorgt werden</p></li></ul></div></section><section id="_datenbank_analogie"><h2>Datenbank-Analogie</h2><div class="ulist"><ul><li><p><em>Entities</em> sind der Primärschlüssel (= ID)</p></li><li><p><em>Components</em> sind die einzelnen Spalten (=Daten)</p></li><li><p><em>Systems</em> können über Abfragen die für sie wichtigen Zeilen bearbeiten</p></li></ul></div></section><section id="_unser_spiel_in_ecs_form"><h2>Unser Spiel in ECS Form</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="json language-json">Components:
@@ -41,7 +85,10 @@ Systems:
    RenderSystem
    ParticleSystem
    AnimationSystem</code></pre></div></div></section></section>
-<section><section id="_Änderungswünsche_2"><h2>Änderungswünsche!</h2></section><section id="_bewegliche_lichter_2"><h2>Bewegliche Lichter!</h2><div class="ulist"><ul><li><p>Licht-Entities bekommen eine <code>Velocity</code>-Component angehängt</p></li><li><p>Evtl. muss das <code>RenderSystem</code> angepasst werden</p></li></ul></div></section><section id="_leuchtende_einhörner_2"><h2>Leuchtende Einhörner</h2><div class="paragraph"><p>Einhorn-Entities bekommen eine <code>LightEmission</code>-Component angehängt.</p></div></section><section id="_neue_kreatur_2"><h2>Neue Kreatur</h2><div class="paragraph"><p>Neue Kreatur-spezifische Components erzeugen (<code>Mesh</code>, <code>Texture</code>, <code>Script</code>, &#8230;&#8203;).</p></div></section></section>
+<section><section id="_Änderungswünsche_2"><h2>Änderungswünsche!</h2></section><section id="_bewegliche_lichter_2"><h2>Bewegliche Lichter!</h2><div class="ulist"><ul><li><p>Licht-Entities bekommen eine <code>Velocity</code>-Component angehängt</p></li><li><p>Evtl. muss das <code>RenderSystem</code> angepasst werden</p></li></ul></div>
+<div class="imageblock" style=""><div class="content"><img src="images/fireball.svg" alt="Fireball" width="300"></div></div></section><section id="_leuchtende_einhörner_2"><h2>Leuchtende Einhörner</h2><div class="paragraph"><p>Einhorn-Entities bekommen eine <code>LightEmission</code>-Component angehängt.</p></div>
+<div class="imageblock" style=""><div class="content"><img src="images/unicornLightFull.svg" alt="UnicornLightFull" width="150"></div></div></section><section id="_neue_kreatur_2"><h2>Neue Kreatur</h2><div class="paragraph"><p>Neue Kreatur-spezifische Components erzeugen (<code>Mesh</code>, <code>Texture</code>, <code>Script</code>, &#8230;&#8203;).</p></div>
+<div class="imageblock" style=""><div class="content"><img src="images/genders.svg" alt="Creatures" width="450"></div></div></section></section>
 <section><section id="_bewertung"><h2>Bewertung</h2></section><section id="_nachteile"><h2>Nachteile</h2><div class="ulist"><ul><li><p>Archetypen, Templates, Factories oder ähnliches notwendig bei komplexeren Projekten</p></li><li><p>Oft nur schwer in bereits bestehende Systeme integrierbar</p></li><li><p>Naive Implementierung ist sehr langsam</p></li><li><p>Debugging ist schwerer (dadurch dass es keine Klassen gibt, fällt es schwer, einzelne Entities wiederzuerkennen und zu verfolgen)</p></li></ul></div></section><section id="_vorteile"><h2>Vorteile</h2><div class="ulist"><ul><li><p>Debuggen ist einfacher (es gibt nur einen Ort für die Logik)</p></li><li><p>Klare Trennung zwischen Daten, Akteuren und Verhalten</p></li><li><p>Extrem einfach, neue Features sauber in ein bestehendes System einzufügen &#8594; sehr gut für Prototyping geeignet</p></li><li><p>Einfaches einbinden von third-party Libs möglich</p></li><li><p><strong>Data-Driven Design!</strong></p></li></ul></div></section><section id="_mehr_vorteile"><h2>Mehr Vorteile!</h2><div class="ulist"><ul><li><p><strong>Lightning FAST</strong> (Cache optimiert; kommt natürlich auf Implementierung an)</p></li><li><p>Komponenten können gepoolt werden</p></li><li><p>Einfaches Multithreading möglich (ein Thread pro System)</p></li><li><p>Einfache Serialisierung aller Daten</p></li></ul></div></section></section>
 <section id="_frameworks"><h2>Frameworks</h2><div class="ulist"><ul><li><p><a href="https://github.com/libgdx/ashley">Ashley</a> (Java)</p></li><li><p><a href="https://github.com/junkdog/artemis-odb">Artemis-ODB</a> (Java)</p></li><li><p><a href="https://github.com/vinova/Artemis-Cpp">Artemis Port</a> (C++)</p></li><li><p><a href="https://github.com/thelinuxlich/artemis_CSharp">Artemis C# Port</a> (C#)</p></li><li><p><a href="https://github.com/alecthomas/entityx">EntityX</a> (C++)</p></li><li><p><a href="https://github.com/miguelmartin75/anax">anax</a> (C++)</p></li><li><p><a href="https://github.com/sschmid/Entitas-CSharp">Entitas</a> (C#)</p></li></ul></div></section>
 <section id="_fazit"><h2>Fazit</h2><div class="ulist"><ul><li><p>ECS werden seit Jahren erfolgreich in der Spieleentwicklung eingesetzt.</p></li><li><p>Wie man sieht: zurecht!</p></li><li><p>Für bestehende Systeme lohnt sich der Umbau oft nicht, bei Neuentwicklungen sollte man aber darüber nachdenken :)</p></li></ul></div></section>

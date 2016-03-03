@@ -13,6 +13,8 @@ Michael Galetzka / michael.galetzka@disy.net
 ++++
 <link rel="stylesheet" href="highlight.js/9.2.0.monokai-sublime.min.css">
 <script src="highlight.js/9.2.0.min.js"></script>
+<script src="jquery/jquery-2.2.1.min.js"></script>
+<script src="reveal.js/js/reveal.js"></script>
 <script>
 	hljs.initHighlightingOnLoad();
 	hljs.configure({tabReplace: '    '})
@@ -31,6 +33,8 @@ Michael Galetzka / michael.galetzka@disy.net
 == Beispielanwendung
 
 Wir bauen ein neues 3D Fantasy-Computerspiel mit Drachen, Einhörnern, etc.
+
+image::images/gamer.svg[Gamer, 300]
 
 Wie würde eine passende Architektur aussehen?
 
@@ -52,6 +56,19 @@ GameObject
 |-UtilityObject
 ```
 
+++++
+<div class="imageblock" style="position: absolute; top: 150px; right: 250px;">
+  <div class="content">
+	  <img src="images/dragon.svg" alt="Dragon" width="250">
+  </div>
+</div>
+<div class="imageblock" style="position: absolute; top: 160px; right: 100px;">
+  <div class="content">
+	  <img src="images/unicorn.svg" alt="Unicorn" width="150">
+  </div>
+</div>
+++++
+
 == Änderungswünsche!
 
 === Bewegliche Lichter!
@@ -61,16 +78,52 @@ GameObject
 * Lichter sind ab jetzt `MoveableObject` statt `StaticObject` -> schlechter optimierbar, hat nun unnötige Methoden
 * Alternative: ein zweites Licht als `MoveableObject` erstellen -> Code Duplikation oder zumindest Overhead
 
+image::images/fireball.svg[Fireball, 300]
+
 === Leuchtende Einhörner
 
 *Unsere Einhörner sind nicht majestätisch genug!*
 
-* Alle `GameCharacter` bekommen eine `getLightEmitters` Methode? -> viel Overhead und fette API
-* Wir "hacken" die Lösung indem wir ein bewegliches Licht erstellen, welches dem Einhorn folgt
+* Neue `getLightEmitters` Methode für `GameCharacter`? +
+ -> viel Overhead und fette API
+* Wir "hacken" ein bewegliches Licht, +
+ welches dem Einhorn folgt
+
+++++
+<div class="imageblock" style="position: absolute; top: 200px; right: 50px;">
+ <div class="content">
+	  <img src="images/unicornLight.svg" alt="UnicornLight" width="250">
+		<p id="dealLabel" style="
+    position: absolute;
+    top: 320px;
+    background-color: gold;
+    color: mediumblue;
+    font-weight: bold;
+">DEAL WITH IT</p>
+ </div>
+</div>
+<div id="glasses" class="imageblock" style="position: absolute; top: -200px; right: 50px;">
+ <div class="content">
+	  <img src="images/unicornLightGlasses.svg" alt="UnicornLightGlasses" width="250">
+ </div>
+</div>
+<script>
+	$("#_leuchtende_einhörner").attr("data-state", "dealWithIt");
+	Reveal.addEventListener('dealWithIt', function () {
+		$("#dealLabel").css("display", "none");
+		$("#glasses").css("top", "-150px");
+		$("#glasses").animate({top: "200px"}, 5000, "linear", function() {
+			$("#dealLabel").css("display", "block");
+		});
+	});
+</script>
+++++
 
 === Neue Kreatur
 
 *Unser Produzent will für den Plot eine neue Kreatur: den Unidragon (Kreuzung +Unicorn/Dragon+)*
+
+image::images/genders.svg[Creatures, 450]
 
 * Err... Refactoring?
 
@@ -119,13 +172,19 @@ Systems:
 * Licht-Entities bekommen eine `Velocity`-Component angehängt
 * Evtl. muss das `RenderSystem` angepasst werden
 
+image::images/fireball.svg[Fireball, 300]
+
 === Leuchtende Einhörner
 
 Einhorn-Entities bekommen eine `LightEmission`-Component angehängt.
 
+image::images/unicornLightFull.svg[UnicornLightFull, 150]
+
 === Neue Kreatur
 
 Neue Kreatur-spezifische Components erzeugen (`Mesh`, `Texture`, `Script`, ...).
+
+image::images/genders.svg[Creatures, 450]
 
 == Bewertung
 
