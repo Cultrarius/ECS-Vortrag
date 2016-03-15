@@ -165,19 +165,6 @@ Systems:
    AnimationSystem
 ```
 
-=== Vergleich
-
-Vorher (Class) <-> Nachher (Entity)
-
-```json
-OOP                       ECS
-
-GameObject
-  |-MoveableObject
-    |-GameCharacter
-      |-Unicorn
-```
-
 == Änderungswünsche!
 
 === Bewegliche Lichter!
