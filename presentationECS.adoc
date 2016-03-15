@@ -6,7 +6,7 @@ Michael Galetzka / michael.galetzka@disy.net
 :revealjs_history: true
 :revealjs_progress: false
 :revealjs_mouseWheel: true
-:revealjs_parallaxBackgroundImage: images/puzzle-people.jpg
+:revealjs_parallaxBackgroundImage: images/disy-landscape.jpg
 :revealjs_parallaxBackgroundSize: 3246px 1237px
 :revealjs_transition: slide
 
@@ -163,6 +163,19 @@ Systems:
    RenderSystem
    ParticleSystem
    AnimationSystem
+```
+
+=== Vergleich
+
+Vorher (Class) <-> Nachher (Entity)
+
+```json
+OOP                       ECS
+
+GameObject
+  |-MoveableObject
+    |-GameCharacter
+      |-Unicorn
 ```
 
 == Änderungswünsche!
