@@ -235,8 +235,8 @@ image::images/genders.svg[Creatures, 450]
 
 == Fazit
 
-* ECS werden seit Jahren erfolgreich in der Spieleentwicklung eingesetzt.
-* Wie man sieht: zurecht!
-* Für bestehende Systeme lohnt sich der Umbau oft nicht, bei Neuentwicklungen sollte man aber darüber nachdenken :)
+* ECS werden *seit Jahren erfolgreich* in der Spieleentwicklung eingesetzt.
+* Gutes Architekturpattern um mit *sehr dynamischen Anforderungen* umzugehen.
+* Für bestehende Systeme lohnt sich der Umbau oft nicht, bei *Neuentwicklungen* sollte man aber darüber nachdenken :)
 
 == Fragen?

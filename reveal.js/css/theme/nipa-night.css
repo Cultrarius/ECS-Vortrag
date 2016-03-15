@@ -9,14 +9,14 @@
 .reveal .slides {
   bottom: 35px;
   border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.8); }
+  background-color: rgba(0, 0, 0, 0.9); }
 
 .slides > section > section {
   padding: 10px !important;
   box-sizing: border-box; }
 
 .reveal .quoteblock {
-  width: 80%;
+  width: 90%;
   padding: 10px;
   margin: 0 auto;
   border-radius: 10px;
@@ -57,7 +57,7 @@
     .reveal .listingblock .content pre code {
       padding: 10px;
       max-height: none;
-      font-size: 150%;
+      font-size: 180%;
       line-height: 120%; }
 
 .fragment.dim:not(.visible) {
@@ -80,7 +80,7 @@ footer {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.8); }
+  background-color: rgba(0, 0, 0, 0.9); }
   footer p {
     padding: 10px;
     padding-top: 0;
@@ -295,6 +295,7 @@ body {
  *********************************************/
 .reveal a {
   color: orange;
+  font-weight: bold;
   text-decoration: none;
   -webkit-transition: color .15s ease;
   -moz-transition: color .15s ease;
