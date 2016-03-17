@@ -1,0 +1,65 @@
+== Image Credits
+
+=== advent-calendar.jpg
+
+https://www.flickr.com/photos/littlestuffme/10599733413[Advent Calendar]:
+https://www.flickr.com/photos/littlestuffme/[Tina D]
+(https://creativecommons.org/licenses/by/2.0/[CC-BY 2.0])
+
+=== advent-calendar-shop.jpg
+
+https://www.flickr.com/photos/ambernectar/6214119489/
+
+=== ball-of-mud.jpg
+
+https://www.flickr.com/photos/benhaeringer/8247853366/[Mistkäfer]:
+https://www.flickr.com/photos/benhaeringer/[Ben Haeringer]
+(https://creativecommons.org/licenses/by-nd/2.0/[CC-BY-ND 2.0])
+
+=== ball-of-mud-2.jpg
+
+https://www.flickr.com/photos/elgentscho/6883404352/[Dung Beetle @ Work]:
+https://www.flickr.com/photos/elgentscho/[Andi Gentsch]
+(https://creativecommons.org/licenses/by-sa/2.0/[CC-BY-SA 2.0])
+
+=== iceberg.jpg
+
+https://www.flickr.com/photos/usoceangov/8290528771[Iceberg]:
+https://www.flickr.com/photos/usoceangov/[NOAA's National Ocean Service]
+(https://creativecommons.org/licenses/by/2.0/[CC-BY 2.0])
+
+=== jar-hell.jpg
+
+https://commons.wikimedia.org/wiki/File:An_angel_leading_a_soul_into_hell._Oil_painting_by_a_followe_Wellcome_L0030887.jpg[An Angel Leading A Soul Into Hell]:
+https://wellcomelibrary.org/[Wellcome Library, London]
+(https://creativecommons.org/licenses/by/4.0/[CC-BY 4.0])
+
+=== puzzle-cubed.jpg
+
+https://www.flickr.com/photos/dps/136564771/in/photostream/[Puzzle Cubed]
+https://www.flickr.com/photos/dps/[David Singleton]
+(https://creativecommons.org/licenses/by/2.0/[CC-BY 2.0])
+
+=== puzzle-people.jpg
+
+https://www.flickr.com/photos/pagedooley/14555354976/[Puzzle]
+https://www.flickr.com/photos/pagedooley/[Kevin Dooley]
+(https://creativecommons.org/licenses/by/2.0/[CC-BY 2.0])
+
+=== puzzle-piece-green.jpg
+
+https://www.flickr.com/photos/86530412@N02/8252117202/[3D Green Puzzle Piece]
+http://www.stockmonkeys.com/[StockMonkeys.com]
+(https://creativecommons.org/licenses/by/2.0/[CC-BY 2.0])
+
+=== puzzle-pieces-put-together.jpg
+
+https://www.flickr.com/photos/teegardin/6147270119/[Putting The Puzzle Together]
+http://www.seniorliving.org[Ken Teegardin]
+(https://creativecommons.org/licenses/by-sa/2.0/[CC-BY-SA 2.0])
+
+=== puzzle-pieces.jpg
+
+https://www.flickr.com/photos/lizadaly/2945260782/[Puzzle Pieces]
+https://www.flickr.com/photos/lizadaly/[Liza]
+(https://creativecommons.org/licenses/by/2.0/[CC-BY 2.0])
